@@ -58,7 +58,8 @@ public class StatusControllerDetailedTest {
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.contentHeader").value("Server Status requested by Yankel"))
                 .andExpect(jsonPath("$.requestCost").value(4))
-                .andExpect(jsonPath("$.statusDesc").value("Server is up, and there are 4 processors available"));
+                .andExpect(jsonPath("$.statusDesc").value("Server is up, " +
+                        "and there are 4 processors available"));
     }
 
 
