@@ -55,11 +55,13 @@ public class StatusControllerDetailedTest {
     @Test
     public void testAvailableProcessors() throws Exception{
         this.mockMvc.perform(get("/server/status/detailed?details=availableProcessors&name=Yankel"))
+
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.contentHeader").value("Server Status requested by Yankel"))
                 .andExpect(jsonPath("$.requestCost").value(4))
                 .andExpect(jsonPath("$.statusDesc").value("Server is up, " +
-                        "and there are 4 processors available"));
+                        "and there are " + Runtime.getRuntime().availableProcessors() + " processors available"));
+
     }
 
 
