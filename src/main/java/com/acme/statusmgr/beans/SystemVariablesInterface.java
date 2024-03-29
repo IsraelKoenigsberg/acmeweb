@@ -4,5 +4,7 @@ public interface SystemVariablesInterface {
     int getAvailableProcessors();
     long getFreeJVMMemory();
     Runtime.Version getJREVersion();
+    long getTotalJVMMemory();
+    String getTempLocation();
 
 }

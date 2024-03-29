@@ -90,9 +90,9 @@ public class StatusControllerDetailedTest {
      */
     @Test
     public void testTotalJvmMemory() throws Exception{
-        this.mockMvc.perform(get("/server/status/detailed?details=totalJVMMemory&name=Yisrael"))
+        this.mockMvc.perform(get("/server/status/detailed?details=totalJVMMemory&name=Yankel"))
                 .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.contentHeader").value("Server Status requested by Yisrael"))
+                .andExpect(jsonPath("$.contentHeader").value("Server Status requested by Yankel"))
                 .andExpect(jsonPath("$.requestCost").value(14))
                 .andExpect(jsonPath("$.statusDesc").value("Server is up, and there is a total of 159383552 bytes of JVM memory"));
     }

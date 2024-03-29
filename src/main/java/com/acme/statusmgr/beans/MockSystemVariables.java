@@ -16,5 +16,15 @@ public class MockSystemVariables implements SystemVariablesInterface {
         return Runtime.Version.parse("15.0.2+7-27");
     }
 
+    @Override
+    public long getTotalJVMMemory() {
+        return 159383552;
+    }
+
+    @Override
+    public String getTempLocation() {
+        return "M:\\\\AppData\\\\Local\\\\Temp";
+    }
+
 
 }

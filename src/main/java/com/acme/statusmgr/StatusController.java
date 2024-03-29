@@ -78,6 +78,10 @@ public class StatusController {
                     return new FreeJVMMemoryDecorator(detailedStatus, systemVariables);
                 } else if (Objects.equals(details.get(i), "jreVersion")){
                     return new JREVersionDecorator(detailedStatus, systemVariables);
+                } else if (Objects.equals(details.get(i), "totalJVMMemory")){
+                    return new TotalJVMMemoryDecorator(detailedStatus, systemVariables);
+                } else if (Objects.equals(details.get(i), "tempLocation")){
+                    return new TempLocationDecorator(detailedStatus, systemVariables);
                 }
 
             }

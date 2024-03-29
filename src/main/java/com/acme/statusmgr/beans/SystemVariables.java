@@ -15,4 +15,14 @@ public class SystemVariables implements SystemVariablesInterface {
     public Runtime.Version getJREVersion(){
         return Runtime.version();
     }
+
+    @Override
+    public long getTotalJVMMemory() {
+        return Runtime.getRuntime().totalMemory();
+    }
+
+    @Override
+    public String getTempLocation() {
+        return System.getenv("TEMP");
+    }
 }
