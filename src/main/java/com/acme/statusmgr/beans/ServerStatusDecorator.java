@@ -1,9 +1,9 @@
 package com.acme.statusmgr.beans;
 
-public abstract class StatusDecorator implements ServerStatusInterface {
+public abstract class ServerStatusDecorator implements ServerStatusInterface {
     protected ServerStatusInterface detailedServer;
 
-    StatusDecorator(ServerStatusInterface detailedServer) {
+    ServerStatusDecorator(ServerStatusInterface detailedServer) {
         this.detailedServer = detailedServer;
     }
 

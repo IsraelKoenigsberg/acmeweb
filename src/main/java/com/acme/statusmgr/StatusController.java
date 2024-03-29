@@ -1,9 +1,6 @@
 package com.acme.statusmgr;
 
-import com.acme.statusmgr.beans.AvailableProcessors;
-import com.acme.statusmgr.beans.StatusDecorator;
-import com.acme.statusmgr.beans.ServerStatus;
-import com.acme.statusmgr.beans.ServerStatusInterface;
+import com.acme.statusmgr.beans.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -34,7 +32,10 @@ public class StatusController {
 
     protected static final String template = "Server Status requested by %s";
     protected final AtomicLong counter = new AtomicLong();
-
+    private static SystemVariablesInterface systemVariables = new SystemVariables();
+    public void setSystemVariables(SystemVariablesInterface systemInterface){
+        systemVariables = systemInterface;
+    }
     /**
      * Process a request for server status information
      *
@@ -67,7 +68,20 @@ public class StatusController {
         if (details != null) {
             Logger logger = LoggerFactory.getLogger("StatusController");
             logger.info("Details were provided: " + Arrays.toString(details.toArray()));
-                    return new AvailableProcessors(detailedStatus);
+
+            for (int i = 0; i < details.size(); i++){
+                if (Objects.equals(details.get(i), "availableProcessors")){
+                    return new AvailableProcessorsDecorator(detailedStatus, systemVariables);
+                }
+                else if (Objects.equals(details.get(i), "freeJVMMemory")){
+                    System.out.println("I am here");
+                    return new FreeJVMMemoryDecorator(detailedStatus, systemVariables);
+                } else if (Objects.equals(details.get(i), "jreVersion")){
+                    return new JREVersionDecorator(detailedStatus, systemVariables);
+                }
+
+            }
+
 
 
             //todo Should do something with all these details that were requested

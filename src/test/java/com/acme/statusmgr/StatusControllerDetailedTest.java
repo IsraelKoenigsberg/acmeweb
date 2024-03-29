@@ -15,6 +15,8 @@
  */
 package com.acme.statusmgr;
 
+import com.acme.statusmgr.beans.MockSystemVariables;
+import com.acme.statusmgr.beans.SystemVariablesInterface;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -44,6 +46,9 @@ public class StatusControllerDetailedTest {
      */
     @BeforeAll
     public static void beforeAll() {
+        SystemVariablesInterface systemVariables = new MockSystemVariables();
+        StatusController statusController = new StatusController();
+        statusController.setSystemVariables(new MockSystemVariables());
        //todo StatusController.setSystemInfoFacade(null /* todo: Inject appropriate object */);
     }
 
@@ -60,7 +65,7 @@ public class StatusControllerDetailedTest {
                 .andExpect(jsonPath("$.contentHeader").value("Server Status requested by Yankel"))
                 .andExpect(jsonPath("$.requestCost").value(4))
                 .andExpect(jsonPath("$.statusDesc").value("Server is up, " +
-                        "and there are " + Runtime.getRuntime().availableProcessors() + " processors available"));
+                        "and there are 4 processors available"));
 
     }
 
@@ -85,9 +90,9 @@ public class StatusControllerDetailedTest {
      */
     @Test
     public void testTotalJvmMemory() throws Exception{
-        this.mockMvc.perform(get("/server/status/detailed?details=totalJVMMemory&name=Yankel"))
+        this.mockMvc.perform(get("/server/status/detailed?details=totalJVMMemory&name=Yisrael"))
                 .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.contentHeader").value("Server Status requested by Yankel"))
+                .andExpect(jsonPath("$.contentHeader").value("Server Status requested by Yisrael"))
                 .andExpect(jsonPath("$.requestCost").value(14))
                 .andExpect(jsonPath("$.statusDesc").value("Server is up, and there is a total of 159383552 bytes of JVM memory"));
     }

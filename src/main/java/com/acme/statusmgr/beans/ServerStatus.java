@@ -29,41 +29,25 @@ public class ServerStatus implements ServerStatusInterface {
 
     }
 
-    /**
-     * get the id of this request
-     *
-     * @return a numeric id that increases during life of server for each request .
-     */
+
     @Override
     public long getId() {
         return id;
     }
 
-    /**
-     * Get the content header that was specified by the request
-     *
-     * @return some string
-     */
+
     @Override
     public String getContentHeader() {
         return contentHeader;
     }
 
-    /**
-     * Get an english-like description of the server's current status,
-     * obtained from the appropriate Manager class.
-     *
-     * @return A string describing status
-     */
+
     public String getStatusDesc() {
         // Obtain current status of server
         return "Server is " + ServerManager.getCurrentServerStatus();
     }
 
-    /**
-     * Get the cost of this request
-     * @return Integer representing the cost of request as number of pennies
-     */
+
     public Integer getRequestCost() {
         return requestCost;
     }
