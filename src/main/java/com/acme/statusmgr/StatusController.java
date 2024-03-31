@@ -33,15 +33,16 @@ public class StatusController {
     protected static final String template = "Server Status requested by %s";
     protected final AtomicLong counter = new AtomicLong();
     private static SystemVariablesInterface systemVariables = new SystemVariables();
-    public void setSystemVariables(SystemVariablesInterface systemInterface){
+
+    public void setSystemVariables(SystemVariablesInterface systemInterface) {
         systemVariables = systemInterface;
     }
+
     /**
      * Process a request for server status information
      *
      * @param name optional param identifying the requester
      * @return a ServerStatus object containing the info to be returned to the requestor
-     *
      */
     @RequestMapping("/status")
     public ServerStatus getStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name) {
@@ -69,31 +70,25 @@ public class StatusController {
             Logger logger = LoggerFactory.getLogger("StatusController");
             logger.info("Details were provided: " + Arrays.toString(details.toArray()));
 
-            for (int i = 0; i < details.size(); i++){
-                if (Objects.equals(details.get(i), "availableProcessors")){
-                    return new AvailableProcessorsDecorator(detailedStatus, systemVariables);
-                }
-                else if (Objects.equals(details.get(i), "freeJVMMemory")){
-                    System.out.println("I am here");
-                    return new FreeJVMMemoryDecorator(detailedStatus, systemVariables);
-                } else if (Objects.equals(details.get(i), "jreVersion")){
-                    return new JREVersionDecorator(detailedStatus, systemVariables);
-                } else if (Objects.equals(details.get(i), "totalJVMMemory")){
-                    return new TotalJVMMemoryDecorator(detailedStatus, systemVariables);
-                } else if (Objects.equals(details.get(i), "tempLocation")){
-                    return new TempLocationDecorator(detailedStatus, systemVariables);
+
+            for (int i = 0; i < details.size(); i++) {
+                if (Objects.equals(details.get(i), "availableProcessors")) {
+                    detailedStatus = new AvailableProcessorsDecorator(detailedStatus, systemVariables);
+                } else if (Objects.equals(details.get(i), "freeJVMMemory")) {
+
+                    detailedStatus = new FreeJVMMemoryDecorator(detailedStatus, systemVariables);
+                } else if (Objects.equals(details.get(i), "jreVersion")) {
+                    detailedStatus = new JREVersionDecorator(detailedStatus, systemVariables);
+                } else if (Objects.equals(details.get(i), "totalJVMMemory")) {
+                    detailedStatus = new TotalJVMMemoryDecorator(detailedStatus, systemVariables);
+                } else if (Objects.equals(details.get(i), "tempLocation")) {
+                    detailedStatus = new TempLocationDecorator(detailedStatus, systemVariables);
                 }
 
             }
-
-
-
+            return detailedStatus;
             //todo Should do something with all these details that were requested
-
-
         }
-
-
         return detailedStatus; //todo shouldn't just return null
     }
 }

@@ -112,7 +112,6 @@ public class StatusControllerDetailedTest {
 
     }
 
-
     /**
      * Tests that the server can handle requests with the "tempLocation" detail.
      * @throws Exception if something goes wrong while using the mock server
@@ -150,7 +149,6 @@ public class StatusControllerDetailedTest {
                                 "bytes of JVM memory, and there are 4 processors available"));
 
     }
-
 
     /**
      * Tests that the server does not accept requests without the details parameter.
