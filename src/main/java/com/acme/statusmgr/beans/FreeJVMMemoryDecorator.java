@@ -21,22 +21,22 @@ public class FreeJVMMemoryDecorator extends ServerStatusDecorator {
 
     @Override
     public long getId() {
-        return detailedServer.getId();
+        return super.getId();
     }
 
     @Override
     public String getContentHeader() {
-        return detailedServer.getContentHeader();
+        return super.getContentHeader();
     }
 
     @Override
     public String getStatusDesc() {
-        return detailedServer.getStatusDesc() + ", and there are " + getJVMMemory() + " bytes of JVM memory free";
+        return super.getStatusDesc() + ", and there are " + getJVMMemory() + " bytes of JVM memory free";
     }
 
     @Override
     public Integer getRequestCost() {
-        return detailedServer.getRequestCost() + 7;
+        return super.getRequestCost() + 7;
     }
 
     /**

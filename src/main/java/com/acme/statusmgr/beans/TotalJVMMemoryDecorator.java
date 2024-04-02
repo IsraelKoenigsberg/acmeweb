@@ -21,23 +21,23 @@ public class TotalJVMMemoryDecorator extends ServerStatusDecorator {
 
     @Override
     public long getId() {
-        return detailedServer.getId();
+        return super.getId();
     }
 
     @Override
     public String getContentHeader() {
-        return detailedServer.getContentHeader();
+        return super.getContentHeader();
     }
 
     @Override
     public String getStatusDesc() {
-        return detailedServer.getStatusDesc() + ", and there is a total of " + getTotalJVMMemory() +
+        return super.getStatusDesc() + ", and there is a total of " + getTotalJVMMemory() +
                 " bytes of JVM memory";
     }
 
     @Override
     public Integer getRequestCost() {
-        return detailedServer.getRequestCost() + 13;
+        return super.getRequestCost() + 13;
     }
 
     /**

@@ -21,22 +21,22 @@ public class JREVersionDecorator extends ServerStatusDecorator {
 
     @Override
     public long getId() {
-        return detailedServer.getId();
+        return super.getId();
     }
 
     @Override
     public String getContentHeader() {
-        return detailedServer.getContentHeader();
+        return super.getContentHeader();
     }
 
     @Override
     public String getStatusDesc() {
-        return detailedServer.getStatusDesc() + ", and the JRE version is " + getJREVersion();
+        return super.getStatusDesc() + ", and the JRE version is " + getJREVersion();
     }
 
     @Override
     public Integer getRequestCost() {
-        return detailedServer.getRequestCost() + 19;
+        return super.getRequestCost() + 19;
     }
 
     /**

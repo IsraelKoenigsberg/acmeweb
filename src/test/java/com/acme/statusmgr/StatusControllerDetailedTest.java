@@ -46,10 +46,10 @@ public class StatusControllerDetailedTest {
      */
     @BeforeAll
     public static void beforeAll() {
-        SystemVariablesInterface systemVariables = new MockSystemVariables();
+
         StatusController statusController = new StatusController();
         statusController.setSystemVariables(new MockSystemVariables());
-       //todo StatusController.setSystemInfoFacade(null /* todo: Inject appropriate object */);
+
     }
 
 
@@ -160,9 +160,7 @@ public class StatusControllerDetailedTest {
                 .andDo(print()).andExpect(status().isBadRequest())
                 .andExpect(status().reason(Matchers.is(
                         "Required request parameter 'details' for method parameter type List is not present")));
-
     }
-
 
     /**
      * Tests that the server throws an error if the caller asked for a detail

@@ -3,9 +3,11 @@ package com.acme.statusmgr;
 import com.acme.statusmgr.beans.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,8 +34,8 @@ public class StatusController {
 
     protected static final String template = "Server Status requested by %s";
     protected final AtomicLong counter = new AtomicLong();
-    private static SystemVariablesInterface systemVariables = new SystemVariables();
-
+    private static SystemVariablesInterface systemVariables = new SystemVariablesFacade();
+    private boolean validDetail = false;
     public void setSystemVariables(SystemVariablesInterface systemInterface) {
         systemVariables = systemInterface;
     }
@@ -46,10 +48,10 @@ public class StatusController {
      */
     @RequestMapping("/status")
     public ServerStatus getStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name) {
+
         return new ServerStatus(counter.incrementAndGet(),
                 String.format(template, name));
     }
-
 
     /**
      * Process a request for detailed server status information
@@ -70,25 +72,46 @@ public class StatusController {
             Logger logger = LoggerFactory.getLogger("StatusController");
             logger.info("Details were provided: " + Arrays.toString(details.toArray()));
 
-
-            for (int i = 0; i < details.size(); i++) {
-                if (Objects.equals(details.get(i), "availableProcessors")) {
-                    detailedStatus = new AvailableProcessorsDecorator(detailedStatus, systemVariables);
-                } else if (Objects.equals(details.get(i), "freeJVMMemory")) {
-
-                    detailedStatus = new FreeJVMMemoryDecorator(detailedStatus, systemVariables);
-                } else if (Objects.equals(details.get(i), "jreVersion")) {
-                    detailedStatus = new JREVersionDecorator(detailedStatus, systemVariables);
-                } else if (Objects.equals(details.get(i), "totalJVMMemory")) {
-                    detailedStatus = new TotalJVMMemoryDecorator(detailedStatus, systemVariables);
-                } else if (Objects.equals(details.get(i), "tempLocation")) {
-                    detailedStatus = new TempLocationDecorator(detailedStatus, systemVariables);
+            for (String detail : details) {
+                switch (detail) {
+                    case "availableProcessors" -> {
+                        detailedStatus = new AvailableProcessorsDecorator(detailedStatus, systemVariables);
+                        validDetail = true;
+                    }
+                    case "freeJVMMemory" -> {
+                        detailedStatus = new FreeJVMMemoryDecorator(detailedStatus, systemVariables);
+                        validDetail = true;
+                    }
+                    case "jreVersion" -> {
+                        detailedStatus = new JREVersionDecorator(detailedStatus, systemVariables);
+                        validDetail = true;
+                    }
+                    case "totalJVMMemory" -> {
+                        detailedStatus = new TotalJVMMemoryDecorator(detailedStatus, systemVariables);
+                        validDetail = true;
+                    }
+                    case "tempLocation" -> {
+                        detailedStatus = new TempLocationDecorator(detailedStatus, systemVariables);
+                        validDetail = true;
+                    }
+                    default -> checkForNonExistentDetail(detail);
                 }
-
             }
+
             return detailedStatus;
-            //todo Should do something with all these details that were requested
+
         }
-        return detailedStatus; //todo shouldn't just return null
+
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Required request parameter 'details' for method" +
+                " parameter type List is not present");
+    }
+
+    public void checkForNonExistentDetail(String detail) {
+                if (validDetail){
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid details option: " +detail);
+                }
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "Invalid details option: " + detail);
+
     }
 }

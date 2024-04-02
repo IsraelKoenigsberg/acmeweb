@@ -1,6 +1,6 @@
 package com.acme.statusmgr.beans;
 
-public class SystemVariables implements SystemVariablesInterface {
+public class SystemVariablesFacade implements SystemVariablesInterface {
 
     @Override
     public int getAvailableProcessors() {

@@ -21,23 +21,23 @@ public class TempLocationDecorator extends ServerStatusDecorator {
 
     @Override
     public long getId() {
-        return detailedServer.getId();
+        return super.getId();
     }
 
     @Override
     public String getContentHeader() {
-        return detailedServer.getContentHeader();
+        return super.getContentHeader();
     }
 
     @Override
     public String getStatusDesc() {
-        return detailedServer.getStatusDesc() + ", and the server's temp file location is "
+        return super.getStatusDesc() + ", and the server's temp file location is "
                 + getTempLocation();
     }
 
     @Override
     public Integer getRequestCost() {
-        return detailedServer.getRequestCost() + 29;
+        return super.getRequestCost() + 29;
     }
 
     /**

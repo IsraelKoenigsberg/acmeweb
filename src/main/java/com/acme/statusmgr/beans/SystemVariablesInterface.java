@@ -6,5 +6,4 @@ public interface SystemVariablesInterface {
     Runtime.Version getJREVersion();
     long getTotalJVMMemory();
     String getTempLocation();
-
 }

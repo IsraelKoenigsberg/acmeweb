@@ -21,23 +21,23 @@ public class AvailableProcessorsDecorator extends ServerStatusDecorator {
 
     @Override
     public long getId() {
-        return detailedServer.getId();
+        return super.getId();
     }
 
     @Override
     public String getContentHeader() {
-        return detailedServer.getContentHeader();
+        return super.getContentHeader();
     }
 
     @Override
     public String getStatusDesc() {
-        return detailedServer.getStatusDesc() + ", and there are " + getAvailableProcessors() + " " +
+        return super.getStatusDesc() + ", and there are " + getAvailableProcessors() + " " +
                 "processors available";
     }
 
     @Override
     public Integer getRequestCost() {
-        return detailedServer.getRequestCost() + 3;
+        return super.getRequestCost() + 3;
     }
 
     /**
