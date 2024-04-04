@@ -31,7 +31,7 @@ public class AvailableProcessorsDecorator extends ServerStatusDecorator {
 
     @Override
     public String getStatusDesc() {
-        return super.getStatusDesc() + ", and there are " + getAvailableProcessors() + " " +
+        return super.getStatusDesc() + ", and there are " + systemVariables.getAvailableProcessors() + " " +
                 "processors available";
     }
 
@@ -40,14 +40,6 @@ public class AvailableProcessorsDecorator extends ServerStatusDecorator {
         return super.getRequestCost() + 3;
     }
 
-    /**
-     * Retrieves the number of available processors on the server.
-     *
-     * @return the number of available processors on the server
-     */
-    public int getAvailableProcessors() {
 
-        return systemVariables.getAvailableProcessors();
-    }
 
 }

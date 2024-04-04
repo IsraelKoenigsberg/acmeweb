@@ -19,7 +19,7 @@ public abstract class ServerStatusDecorator implements ServerStatusInterface {
 
     @Override
     public String getStatusDesc() {
-        return detailedServer.getStatusDesc();
+         return detailedServer.getStatusDesc();
     }
 
     @Override

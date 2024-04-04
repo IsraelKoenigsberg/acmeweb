@@ -31,7 +31,7 @@ public class JREVersionDecorator extends ServerStatusDecorator {
 
     @Override
     public String getStatusDesc() {
-        return super.getStatusDesc() + ", and the JRE version is " + getJREVersion();
+        return super.getStatusDesc() + ", and the JRE version is " + systemVariables.getJREVersion();
     }
 
     @Override
@@ -39,14 +39,5 @@ public class JREVersionDecorator extends ServerStatusDecorator {
         return super.getRequestCost() + 19;
     }
 
-    /**
-     * Retrieves the JRE Version
-     *
-     * @return the JRE Version.
-     */
 
-    public Runtime.Version getJREVersion() {
-
-        return systemVariables.getJREVersion();
-    }
 }

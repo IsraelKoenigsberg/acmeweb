@@ -31,7 +31,7 @@ public class FreeJVMMemoryDecorator extends ServerStatusDecorator {
 
     @Override
     public String getStatusDesc() {
-        return super.getStatusDesc() + ", and there are " + getJVMMemory() + " bytes of JVM memory free";
+        return super.getStatusDesc() + ", and there are " + systemVariables.getFreeJVMMemory() + " bytes of JVM memory free";
     }
 
     @Override
@@ -39,14 +39,4 @@ public class FreeJVMMemoryDecorator extends ServerStatusDecorator {
         return super.getRequestCost() + 7;
     }
 
-    /**
-     * Retrieves the number of free JVM Memory on the server.
-     *
-     * @return the number of free JVM on the server
-     */
-
-    public long getJVMMemory() {
-
-        return systemVariables.getFreeJVMMemory();
-    }
 }

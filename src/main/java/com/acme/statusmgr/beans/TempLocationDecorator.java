@@ -32,7 +32,7 @@ public class TempLocationDecorator extends ServerStatusDecorator {
     @Override
     public String getStatusDesc() {
         return super.getStatusDesc() + ", and the server's temp file location is "
-                + getTempLocation();
+                + systemVariables.getTempLocation();
     }
 
     @Override
@@ -40,13 +40,5 @@ public class TempLocationDecorator extends ServerStatusDecorator {
         return super.getRequestCost() + 29;
     }
 
-    /**
-     * Retrieves the Temp Location.
-     *
-     * @return the Temp Location
-     */
 
-    public String getTempLocation() {
-        return systemVariables.getTempLocation();
-    }
 }

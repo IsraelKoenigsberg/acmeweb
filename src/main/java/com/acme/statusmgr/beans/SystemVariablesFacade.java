@@ -11,13 +11,15 @@ public class SystemVariablesFacade implements SystemVariablesInterface {
     public long getFreeJVMMemory() {
         return Runtime.getRuntime().freeMemory();
     }
+
     @Override
-    public Runtime.Version getJREVersion(){
+    public Runtime.Version getJREVersion() {
         return Runtime.version();
     }
 
     @Override
     public long getTotalJVMMemory() {
+
         return Runtime.getRuntime().totalMemory();
     }
 
