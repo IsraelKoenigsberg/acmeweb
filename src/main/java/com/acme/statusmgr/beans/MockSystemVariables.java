@@ -1,5 +1,9 @@
 package com.acme.statusmgr.beans;
 
+/**
+ * An implementation of the {@link SystemVariablesInterface} interface that provides
+ * hardcoded or artificially set information for testing purposes.
+ */
 public class MockSystemVariables implements SystemVariablesInterface {
     @Override
     public int getAvailableProcessors() {
@@ -25,6 +29,5 @@ public class MockSystemVariables implements SystemVariablesInterface {
     public String getTempLocation() {
         return "M:\\\\AppData\\\\Local\\\\Temp";
     }
-
 
 }
