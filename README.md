@@ -29,7 +29,13 @@ The `name` parameter value overrides the default value of “Anonymous” and is
 `---- [source, json]
 {"id":2,"contentHeader":"Server Status requested by Moishe","statusDesc":"Server is up"}
 ----`
+**--> Detailed Server Status
 
+To obtain a detailed server status, you can make requests to the /status/detailed endpoint. This endpoint accepts an additional optional parameter details, which specifies the information you want to retrieve. Example:
+
+http://localhost:8080/server/status/detailed?details=tempLocation,totalJVMMemory,availableProcessors&name=Yankel
+
+This will return a detailed server status including information about the temporary location, total JVM memory, and available processors.
 **--> Syntax for URLS:**
 *    All start with /server
 *    /status  will give back status of server
