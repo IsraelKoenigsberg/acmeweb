@@ -15,6 +15,8 @@
  */
 package com.acme.statusmgr;
 
+import com.acme.statusmgr.beans.MockSystemVariables;
+import com.acme.statusmgr.beans.SystemVariablesInterface;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -44,7 +46,10 @@ public class StatusControllerDetailedTest {
      */
     @BeforeAll
     public static void beforeAll() {
-       //todo StatusController.setSystemInfoFacade(null /* todo: Inject appropriate object */);
+
+        StatusController statusController = new StatusController();
+        statusController.setSystemVariables(new MockSystemVariables());
+
     }
 
 
@@ -55,11 +60,13 @@ public class StatusControllerDetailedTest {
     @Test
     public void testAvailableProcessors() throws Exception{
         this.mockMvc.perform(get("/server/status/detailed?details=availableProcessors&name=Yankel"))
+
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.contentHeader").value("Server Status requested by Yankel"))
                 .andExpect(jsonPath("$.requestCost").value(4))
                 .andExpect(jsonPath("$.statusDesc").value("Server is up, " +
                         "and there are 4 processors available"));
+
     }
 
 
@@ -105,7 +112,6 @@ public class StatusControllerDetailedTest {
 
     }
 
-
     /**
      * Tests that the server can handle requests with the "tempLocation" detail.
      * @throws Exception if something goes wrong while using the mock server
@@ -144,7 +150,6 @@ public class StatusControllerDetailedTest {
 
     }
 
-
     /**
      * Tests that the server does not accept requests without the details parameter.
      * @throws Exception if something goes wrong while using the mock server
@@ -155,9 +160,7 @@ public class StatusControllerDetailedTest {
                 .andDo(print()).andExpect(status().isBadRequest())
                 .andExpect(status().reason(Matchers.is(
                         "Required request parameter 'details' for method parameter type List is not present")));
-
     }
-
 
     /**
      * Tests that the server throws an error if the caller asked for a detail
